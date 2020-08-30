@@ -14,7 +14,7 @@ function App() {
       <h1>Plant Simulation</h1>
 
       {!state.plant && (<ChoosePlant options={plantData} plant={state.plant} setState={setState}/>)}
-      {!!state.plant && (
+      {!!state.plant && !state.sun && !state.water && (
         <PlantPlant state={state} setState={setState} lightValues={lightValues} waterValues={waterValues}/>
       )}
     </div>

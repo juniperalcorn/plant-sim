@@ -12,8 +12,8 @@ const PlantPlant = ({state, setState, lightValues, waterValues}) => {
                 <div>
                     Select Light:
                     <Select
-                        value={state.light}
-                        onChange={(e) => setState({light: e.target.value})}
+                        value={state.sun}
+                        onChange={(e) => setState({sun: e.target.value})}
                         variant="outlined"
                         className={classes.select}
                     >
