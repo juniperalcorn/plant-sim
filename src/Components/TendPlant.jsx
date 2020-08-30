@@ -2,6 +2,9 @@ import React, {useState, useEffect} from "react"
 import {makeStyles} from "@material-ui/core/styles"
 import LinearProgress from '@material-ui/core/LinearProgress';
 
+// compare sun vs water; 
+// based on sun, reduce water progressively at a certain rate
+
 
 const TendPlant = ({userSettings}) => {
     const classes = useStyles()
@@ -19,14 +22,14 @@ const TendPlant = ({userSettings}) => {
         const actualWater = waterLevel
         const waterScore = evaluateElementalDifference(preferredWater, actualWater)
 
-        console.log("waterScore: ",waterScore)
         const preferredSun = userSettings.plant.sunValue
         const actualSun = userSettings.sun.value
         const sunScore = evaluateElementalDifference(preferredSun, actualSun)
-        console.log("sunScore: ", sunScore)
-        const lifeScore = 100 - waterScore - sunScore
-        console.log("life score: ", lifeScore)
-        return lifeScore
+
+        const sunWaterRatio = evaluateSunWaterRatio(actualSun, actualWater)
+
+        const lifeScore = 100 - waterScore - sunScore - sunWaterRatio
+        return lifeScore < 0 ? 0 : lifeScore
     }
 
     const evaluateElementalDifference = (pref, act) => {
@@ -35,6 +38,18 @@ const TendPlant = ({userSettings}) => {
             return difference * 10
         } else return 0
     }
+
+    // use actual sun, and actual water
+    const evaluateSunWaterRatio = (sun, water) => {
+        const thirsty = water > 5
+        if (thirsty){
+            if (sun > 5) return 30
+            if (sun === 5) return 20
+        } else {
+            if (sun < 5) return 10
+        }
+    }
+
     return (
         <div>
             <h3>Tend your {userSettings.plant.name}</h3>
