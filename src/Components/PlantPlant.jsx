@@ -2,7 +2,7 @@ import React from "react"
 import {makeStyles} from "@material-ui/core/styles"
 import Select from '@material-ui/core/Select';
 
-const PlantPlant = ({state, setState, lightValues, waterValues}) => {
+const PlantPlant = ({state, setState, sunValues, waterValues}) => {
     const classes = useStyles()
 
     return(
@@ -10,15 +10,15 @@ const PlantPlant = ({state, setState, lightValues, waterValues}) => {
             <h3>Plant your {state.plant.name}</h3>
             <div className={classes.contain}>
                 <div>
-                    Select Light:
+                    Select sun:
                     <Select
-                        value={state.light}
-                        onChange={(e) => setState({light: e.target.value})}
+                        value={state.sun}
+                        onChange={(e) => setState({sun: e.target.value})}
                         variant="outlined"
                         className={classes.select}
                     >
-                        {lightValues.map(l => {
-                            return <option value={l.description} className={classes.option}>{l.description}</option>
+                        {sunValues.map(l => {
+                            return <option value={l} className={classes.option}>{l.description}</option>
                         })}
                     </Select>
                 </div>
@@ -31,7 +31,7 @@ const PlantPlant = ({state, setState, lightValues, waterValues}) => {
                         className={classes.select}
                     >
                         {waterValues.map(w => {
-                            return <option value={w.description} className={classes.option}>{w.description}</option>
+                            return <option value={w} className={classes.option}>{w.description}</option>
                         })}
                     </Select>
                 </div>
