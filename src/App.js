@@ -27,6 +27,7 @@ function App() {
   );
 }
 
+// I think this data could be factored out into a JSON document
 const plantData = [
   {
     name: "Cactus",

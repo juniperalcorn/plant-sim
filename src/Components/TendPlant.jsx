@@ -12,6 +12,11 @@ const TendPlant = ({userSettings}) => {
     const [waterWarning, setWaterWarning] = useState(false)
     const [lifeScore, setLifeScore] = useState()
 
+    // I'd like to work on adding a setTimeout feature that reduces plant life periodically
+    // in my work, we use `useDebounce`, but this is for search terms/values that change
+    // here, a change in value shouldn't be the trigger, rather the timeout should be
+    // I suspect useEffect is the right place to start, but I'm not sure.
+
     useEffect(() => {
         const lifeLevel = plantLife(waterLevel)
         setLifeScore(lifeLevel)
@@ -32,6 +37,8 @@ const TendPlant = ({userSettings}) => {
         return lifeScore < 0 ? 0 : lifeScore
     }
 
+    // I'd love to imagine a more sophisticated algorithm/s for understanding the ration between
+    // the settings and the actual sun/water, and their interplay...
     const evaluateElementalDifference = (pref, act) => {
         const difference = Math.abs(pref-act)
         if (difference > 2){
@@ -39,7 +46,6 @@ const TendPlant = ({userSettings}) => {
         } else return 0
     }
 
-    // use actual sun, and actual water
     const evaluateSunWaterRatio = (sun, water) => {
         const thirsty = water > 5
         if (thirsty){
